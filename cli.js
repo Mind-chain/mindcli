@@ -8,6 +8,7 @@ const { checkAddress } = require("././src/commands/explorer/search-address")
 const {searchTransaction } = require('./src/commands/explorer/searchTransaction')
 const {stakemind} = require("./src/commands/staking/stake");
 const { unstakeMind } = require('./src/commands/staking/unstake');
+const { showValidators } = require('./src/commands/staking/showValidators');
  
 
 
@@ -118,6 +119,16 @@ Promise.all([
     .action(async (privateKey) => {
         try {
             await unstakeMind(privateKey);
+        } catch (error) {
+            console.error(chalk.red(error.message));
+        }
+    });
+    staking
+    .command("get-validators")
+    .description("show all current active validators")
+    .action(async () => {
+        try {
+            await showValidators();
         } catch (error) {
             console.error(chalk.red(error.message));
         }
