@@ -42,7 +42,7 @@ Promise.all([
       .description("get current block details")
       .action(async () => {
         const blockDetails = await getCurrentBlockDetails();
-        console.log(chalk.green("Current Block Details:"), blockDetails);
+        console.log("Current Block Details:", blockDetails);
       });
 
     explorer
