@@ -4,6 +4,7 @@ const { program } = require('commander');
 const { version } = require("./package.json");
 const getCurrentBlockDetails = require("./src/commands/explorer/getcurrentblock");
 const {findBlock} = require("./src/commands/explorer/findblock");
+const { checkAddress } = require("././src/commands/explorer/search-address")
 
 
 Promise.all([
@@ -50,6 +51,21 @@ Promise.all([
             console.log(`Block ${blockNumber} Details:`, blockDetails);
         } catch (error) {
             console.error("Error occurred while finding block details:", error.message);
+        }
+    });
+    explorer 
+    .command("checkaddress <address>")
+    .description("check details of an Ethereum address")
+    .action(async (address) => {
+        try {
+            const addressDetails = await checkAddress(address);
+            console.log(`Details for address ${address}:`);
+            console.log("Balance:", addressDetails.balance+" MIND");
+            console.log("Transaction Count:", addressDetails.transactionCount);
+            console.log("Code Exists:", addressDetails.codeExists ? "Yes" : "No");
+            //console.log("ENS Name:", addressDetails.ensName);
+        } catch (error) {
+            console.error(error.message);
         }
     });
 
