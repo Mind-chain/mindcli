@@ -5,6 +5,7 @@ const { version } = require("./package.json");
 const getCurrentBlockDetails = require("./src/commands/explorer/getcurrentblock");
 const {findBlock} = require("./src/commands/explorer/findblock");
 const { checkAddress } = require("././src/commands/explorer/search-address")
+const {searchTransaction } = require('./src/commands/explorer/searchTransaction')
 
 
 Promise.all([
@@ -55,7 +56,7 @@ Promise.all([
     });
     explorer 
     .command("checkaddress <address>")
-    .description("check details of an Ethereum address")
+    .description("check details of an MSC address")
     .action(async (address) => {
         try {
             const addressDetails = await checkAddress(address);
@@ -69,6 +70,28 @@ Promise.all([
         }
     });
 
+    explorer
+    
+    .command("searchtransaction <transactionHash>")
+    .description("search details of an MSC transaction")
+    .action(async (transactionHash) => {
+        try {
+            const transactionDetails = await searchTransaction(transactionHash);
+            console.log(`Details for transaction ${transactionHash}:`);
+            console.log("Hash:", transactionDetails.hash);
+            console.log("Block Number:", transactionDetails.blockNumber);
+            console.log("From:", transactionDetails.from);
+            console.log("To:", transactionDetails.to);
+            console.log("Value:", transactionDetails.value + " MIND");
+            console.log("Gas Price:", transactionDetails.gasPrice);
+            console.log("Gas Limit:", transactionDetails.gasLimit);
+            console.log("Nonce:", transactionDetails.nonce);
+            console.log("Timestamp:", transactionDetails.timestamp);
+            console.log("Confirmations:", transactionDetails.confirmations);
+        } catch (error) {
+            console.error(chalk.yellow(error.message));
+        }
+    });
 
 
     program.parse(process.argv);
