@@ -6,13 +6,11 @@ const getCurrentBlockDetails = require("./src/commands/explorer/getcurrentblock"
 const {findBlock} = require("./src/commands/explorer/findblock");
 const { checkAddress } = require("././src/commands/explorer/search-address")
 const {searchTransaction } = require('./src/commands/explorer/searchTransaction')
-<<<<<<< HEAD
+
 const {stakemind} = require("./src/commands/staking/stake");
 const { unstakeMind } = require('./src/commands/staking/unstake');
  
-=======
 
->>>>>>> 794bcaab2ad868840197181f62d8efe1f0b8235b
 
 Promise.all([
   import('figlet'),
