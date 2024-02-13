@@ -1,5 +1,5 @@
 const { ethers } = require('ethers');
-const { urls } = require("./../../config/index");
+const { urls } = require("../../config/index");
 
 async function getCurrentBlockDetails() {
     const provider = new ethers.providers.JsonRpcProvider(urls.mainnet_rpc.http_rpc);
