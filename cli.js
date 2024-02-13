@@ -25,7 +25,7 @@ Promise.all([
 
     program
       .version(version)
-      .description('CLI for interacting with an EVM-based chain');
+      .description('CLI for interacting with Mind-chain');
 
     program
       .command('version')
