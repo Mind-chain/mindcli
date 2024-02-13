@@ -4,7 +4,7 @@
   "description": "A cli for interacting with mind-chain",
   "main": "cli.js",
   "bin": {
-    "mind-cli": "./cli.js"
+    "mindcli": "./cli.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

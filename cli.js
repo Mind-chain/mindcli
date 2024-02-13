@@ -5,7 +5,10 @@ const { version } = require("./package.json");
 const getCurrentBlockDetails = require("./src/commands/explorer/getcurrentblock");
 const {findBlock} = require("./src/commands/explorer/findblock");
 const { checkAddress } = require("././src/commands/explorer/search-address")
-
+const {searchTransaction } = require('./src/commands/explorer/searchTransaction')
+const {stakemind} = require("./src/commands/staking/stake");
+const { unstakeMind } = require('./src/commands/staking/unstake');
+ 
 
 Promise.all([
   import('figlet'),
@@ -55,7 +58,7 @@ Promise.all([
     });
     explorer 
     .command("checkaddress <address>")
-    .description("check details of an Ethereum address")
+    .description("check details of an MSC address")
     .action(async (address) => {
         try {
             const addressDetails = await checkAddress(address);
@@ -69,7 +72,55 @@ Promise.all([
         }
     });
 
+    explorer
+    
+    .command("searchtransaction <transactionHash>")
+    .description("search details of an MSC transaction")
+    .action(async (transactionHash) => {
+        try {
+            const transactionDetails = await searchTransaction(transactionHash);
+            console.log(`Details for transaction ${transactionHash}:`);
+            console.log("Hash:", transactionDetails.hash);
+            console.log("Block Number:", transactionDetails.blockNumber);
+            console.log("From:", transactionDetails.from);
+            console.log("To:", transactionDetails.to);
+            console.log("Value:", transactionDetails.value + " MIND");
+            console.log("Gas Price:", transactionDetails.gasPrice);
+            console.log("Gas Limit:", transactionDetails.gasLimit);
+            console.log("Nonce:", transactionDetails.nonce);
+            console.log("Timestamp:", transactionDetails.timestamp);
+            console.log("Confirmations:", transactionDetails.confirmations);
+        } catch (error) {
+            console.error(chalk.yellow(error.message));
+        }
+    });
 
+
+
+    //staking commands
+    const staking = program.command("staking")
+      .description("staking related subcommands");
+
+      staking
+    .command("stake <privateKey>")
+    .description("stake mind to the contract")
+    .action(async (privateKey) => {
+        try {
+            await stakemind(privateKey);
+        } catch (error) {
+            console.error(error.message);
+        }
+    });  
+    staking
+    .command("unstake <privateKey>")
+    .description("unstake MIND from the contract")
+    .action(async (privateKey) => {
+        try {
+            await unstakeMind(privateKey);
+        } catch (error) {
+            console.error(chalk.red(error.message));
+        }
+    });
 
     program.parse(process.argv);
 });
