@@ -1,4 +1,4 @@
 module.exports = {
-    urls : require("./providers"),
-    contracts : require("./contracts")
+  urls: require('./providers'),
+  contracts: require('./contracts'),
 }

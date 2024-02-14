@@ -1,37 +1,41 @@
-const { ethers } = require('ethers');
-const { stakingABI } = require('./../../abi/stakingABI');
-const { urls, contracts } = require('./../../config/index');
+const { ethers } = require('ethers')
+const { stakingABI } = require('./../../abi/stakingABI')
+const { urls, contracts } = require('./../../config/index')
 
 async function stakemind(privateKey) {
-    try {
-        console.log('Connecting to MIND network...');
-        
-        const provider = new ethers.providers.JsonRpcProvider(urls.mainnet_rpc); 
-        const wallet = new ethers.Wallet(privateKey, provider);
+  try {
+    console.log('Connecting to MIND network...')
 
-        console.log('Connected to MIND network successfully.');
+    const provider = new ethers.providers.JsonRpcProvider(urls.mainnet_rpc)
+    const wallet = new ethers.Wallet(privateKey, provider)
 
-        // Load the contract
-        const contract = new ethers.Contract(contracts.contracts.staking, stakingABI, wallet);
+    console.log('Connected to MIND network successfully.')
 
-        console.log('Contract loaded successfully.');
+    // Load the contract
+    const contract = new ethers.Contract(
+      contracts.contracts.staking,
+      stakingABI,
+      wallet,
+    )
 
-        const mindToStake = ethers.utils.parseEther('100'); 
-        console.log(`Staking ${ethers.utils.formatEther(mindToStake)} MIND...`);
-        
-        // Execute the stake function
-        const tx = await contract.stake({ value: mindToStake });
+    console.log('Contract loaded successfully.')
 
-        console.log('Stake request sent. Waiting for confirmation...');
+    const mindToStake = ethers.utils.parseEther('100')
+    console.log(`Staking ${ethers.utils.formatEther(mindToStake)} MIND...`)
 
-        // Wait for the transaction to be confirmed
-        await tx.wait();
+    // Execute the stake function
+    const tx = await contract.stake({ value: mindToStake })
 
-        console.log('Stake successful!');
-        console.log('Transaction hash:', tx.hash);
-    } catch (error) {
-        console.error('Error occurred while staking MIND:', error);
-    }
+    console.log('Stake request sent. Waiting for confirmation...')
+
+    // Wait for the transaction to be confirmed
+    await tx.wait()
+
+    console.log('Stake successful!')
+    console.log('Transaction hash:', tx.hash)
+  } catch (error) {
+    console.error('Error occurred while staking MIND:', error)
+  }
 }
 
-module.exports = { stakemind };
+module.exports = { stakemind }
