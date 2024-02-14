@@ -11,6 +11,7 @@ const {
 const { stakemind } = require('./src/commands/staking/stake')
 const { unstakeMind } = require('./src/commands/staking/unstake')
 const { showValidators } = require('./src/commands/staking/showValidators')
+const {createWallet} = require('././src/commands/wallet/createwallet')
 
 Promise.all([import('figlet'), import('chalk')]).then(([figlet, chalk]) => {
   function displayTitle() {
@@ -132,6 +133,28 @@ Promise.all([import('figlet'), import('chalk')]).then(([figlet, chalk]) => {
       } catch (error) {
         console.error(chalk.red(error.message))
       }
+    })
+
+  //wallet management
+
+  const wallet = program
+    .command('wallet')
+    .description('wallet management related subcommands')
+
+  wallet
+    .command('createwallet')
+    .option('-p, --path <path>', 'Path to store the wallet file')
+    .action((options) => {
+      // Check if the --path option is provided
+      if (!options.path) {
+        console.error(
+          'Error: Please provide the path to store the wallet using --path option.',
+        )
+        process.exit(1)
+      }
+
+      // Call createWallet function with the specified path
+      createWallet(options.path)
     })
 
   program.parse(process.argv)
