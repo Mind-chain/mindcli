@@ -1,6 +1,6 @@
 {
   "name": "mindcli",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A cli for interacting with mind-chain",
   "main": "cli.js",
   "bin": {
