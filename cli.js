@@ -13,7 +13,9 @@ const { unstakeMind } = require('./src/commands/staking/unstake')
 const { showValidators } = require('./src/commands/staking/showValidators')
 const { createWallet } = require('././src/commands/wallet/createwallet')
 const installMind = require('./src/commands/node/install-node')
-
+const initSecrets = require('./src/commands/node/setupnode')
+const startMindServer = require('./src/commands/node/start')
+const generateGenesisJson = require('./src/commands/node/getgenesis')
 Promise.all([import('figlet'), import('chalk')]).then(([figlet, chalk]) => {
   function displayTitle() {
     console.log(
@@ -166,6 +168,32 @@ Promise.all([import('figlet'), import('chalk')]).then(([figlet, chalk]) => {
     .command('install-mind')
     .description('Install Mind binary')
     .action(installMind)
+   
+    node
+    .command('init-secrets')
+    .description('Initialize Mind secrets')
+    .option('-d, --data-dir <directory>', 'Specify the data directory')
+    .action((options) => {
+        if (!options.dataDir) {
+            console.error(chalk.red('Error: Please specify the data directory using -d or --data-dir option.'));
+            process.exit(1);
+        }
+
+        initSecrets(options.dataDir);
+    });
+  node
+  .command('start-mind-server')
+  .description('Start Mind node')
+  .action(() => {
+      startMindServer();
+  });  
+
+  node 
+  .command('get-genesis')
+  .description('dump genesis JSON file')
+  .action(() => {
+      generateGenesisJson();
+  });
 
   program.parse(process.argv)
 })
