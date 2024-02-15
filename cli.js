@@ -168,32 +168,36 @@ Promise.all([import('figlet'), import('chalk')]).then(([figlet, chalk]) => {
     .command('install-mind')
     .description('Install Mind binary')
     .action(installMind)
-   
-    node
+
+  node
     .command('init-secrets')
     .description('Initialize Mind secrets')
     .option('-d, --data-dir <directory>', 'Specify the data directory')
     .action((options) => {
-        if (!options.dataDir) {
-            console.error(chalk.red('Error: Please specify the data directory using -d or --data-dir option.'));
-            process.exit(1);
-        }
+      if (!options.dataDir) {
+        console.error(
+          chalk.red(
+            'Error: Please specify the data directory using -d or --data-dir option.',
+          ),
+        )
+        process.exit(1)
+      }
 
-        initSecrets(options.dataDir);
-    });
+      initSecrets(options.dataDir)
+    })
   node
-  .command('start-mind-server')
-  .description('Start Mind node')
-  .action(() => {
-      startMindServer();
-  });  
+    .command('start-mind-server')
+    .description('Start Mind node')
+    .action(() => {
+      startMindServer()
+    })
 
-  node 
-  .command('get-genesis')
-  .description('dump genesis JSON file')
-  .action(() => {
-      generateGenesisJson();
-  });
+  node
+    .command('get-genesis')
+    .description('dump genesis JSON file')
+    .action(() => {
+      generateGenesisJson()
+    })
 
   program.parse(process.argv)
 })
