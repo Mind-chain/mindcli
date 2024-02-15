@@ -11,7 +11,8 @@ const {
 const { stakemind } = require('./src/commands/staking/stake')
 const { unstakeMind } = require('./src/commands/staking/unstake')
 const { showValidators } = require('./src/commands/staking/showValidators')
-const {createWallet} = require('././src/commands/wallet/createwallet')
+const { createWallet } = require('././src/commands/wallet/createwallet')
+const installMind = require('./src/commands/node/install-node')
 
 Promise.all([import('figlet'), import('chalk')]).then(([figlet, chalk]) => {
   function displayTitle() {
@@ -156,6 +157,15 @@ Promise.all([import('figlet'), import('chalk')]).then(([figlet, chalk]) => {
       // Call createWallet function with the specified path
       createWallet(options.path)
     })
+
+  const node = program
+    .command('node ')
+    .description('node management related subcommands')
+
+  node
+    .command('install-mind')
+    .description('Install Mind binary')
+    .action(installMind)
 
   program.parse(process.argv)
 })
