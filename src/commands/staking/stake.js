@@ -20,7 +20,7 @@ async function stakemind(privateKey) {
 
     console.log('Contract loaded successfully.')
 
-    const mindToStake = ethers.utils.parseEther('100')
+    const mindToStake = ethers.utils.parseEther('10000')
     console.log(`Staking ${ethers.utils.formatEther(mindToStake)} MIND...`)
 
     // Execute the stake function
