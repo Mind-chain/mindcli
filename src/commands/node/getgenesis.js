@@ -92,7 +92,7 @@ function generateGenesisJson() {
             "txHashWithType": {
                 "block": 0
             },
-            "Londonv2":{
+            "londonv2":{
                 "block": 6334149
             }
         },
