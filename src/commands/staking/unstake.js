@@ -9,7 +9,7 @@ async function unstakeMind(privateKey) {
     console.log('Connecting to MIND network...')
 
     const provider = new ethers.providers.JsonRpcProvider(
-      urls.testnet_rpc.http_rpc,
+      urls.mainnet_rpc.http_rpc,
     )
     const wallet = new ethers.Wallet(privateKey, provider)
 
