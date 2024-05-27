@@ -6,7 +6,7 @@ async function stakemind(privateKey) {
   try {
     console.log('Connecting to MIND network...')
 
-    const provider = new ethers.providers.JsonRpcProvider(urls.mainnet_rpc)
+    const provider = new ethers.providers.JsonRpcProvider(urls.mainnet_rpc.http_rpc)
     const wallet = new ethers.Wallet(privateKey, provider)
 
     console.log('Connected to MIND network successfully.')

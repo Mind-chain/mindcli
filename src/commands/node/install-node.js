@@ -70,7 +70,7 @@ function downloadAndInstallBinary(url, targetPath) {
 
 function installMind() {
   const url =
-    'https://github.com/Mind-chain/Msc-node/releases/download/v1.0.6/mind'
+    'https://github.com/Mind-chain/Msc-node/releases/download/v1.0.7/mind'
   const targetFileName = 'mind'
   const targetPath = path.join(process.cwd(), targetFileName)
 
